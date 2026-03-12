@@ -1,0 +1,17 @@
+# System folders
+/dist_sicodi
+/SICODI_DEPLOY.zip
+/.next
+/node_modules
+/vendor
+/storage/logs/*.log
+/storage/temp/*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environments
+.env
+.env.local
+.env.production

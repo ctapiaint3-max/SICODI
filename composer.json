@@ -1,0 +1,13 @@
+{
+  "name": "sicodi/core",
+  "description": "Sistema de Control Documental Institucional",
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    }
+  },
+  "config": {
+      "optimize-autoloader": true
+  }
+}

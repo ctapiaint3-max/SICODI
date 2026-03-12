@@ -1,0 +1,58 @@
+openapi: 3.0.0
+info:
+  title: SICODI Internal API
+  description: Sistema de Control Documental Institucional (BPMN, Expedientes, Documentos)
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000/api/v1
+    description: Development server
+paths:
+  /auth/login:
+    post:
+      summary: Autenticar usuario institucional
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Login exitoso y Token devuelto
+  /expedientes:
+    get:
+      summary: Obtener expedientes (Filtrado por ABAC)
+      responses:
+        '200':
+          description: Array de expedientes
+  /workflow/tasks:
+    get:
+      summary: Obtener tareas asginadas (Bandeja / Inbox)
+      responses:
+        '200':
+          description: Array de trámites o tareas BPMN
+  /documentos:
+    post:
+      summary: Sube y asocia un documento a un expediente (Soporta Multipart/FormData File)
+      responses:
+        '200':
+          description: Documento importado al NAS Storage
+  /registro/recepcionar:
+    post:
+      summary: Inserta un registro Dual (Mesa Física o Correo) y genera un Expediente automáticamente
+      responses:
+        '200':
+          description: OK
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []

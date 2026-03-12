@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{SUBJECT}} — SICODI</title>
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; margin: 0; padding: 0; }
+    .wrapper { max-width: 600px; margin: 32px auto; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+    .header { background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%); padding: 32px 40px; text-align: center; }
+    .header h1 { color: #fff; margin: 0; font-size: 22px; letter-spacing: 2px; }
+    .header p  { color: rgba(255,255,255,0.7); margin: 4px 0 0; font-size: 13px; }
+    .body { padding: 36px 40px; }
+    .body h2 { color: #1e3a5f; font-size: 18px; margin-top: 0; }
+    .body p  { color: #4b5563; line-height: 1.6; }
+    .badge { display: inline-block; padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; text-transform: uppercase; }
+    .badge.alta { background: #fef2f2; color: #dc2626; }
+    .badge.normal { background: #eff6ff; color: #2563eb; }
+    .badge.baja { background: #f0fdf4; color: #16a34a; }
+    .info-box { background: #f8fafc; border-left: 4px solid #2563eb; border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 20px 0; }
+    .info-box p { margin: 4px 0; color: #374151; font-size: 14px; }
+    .btn { display: inline-block; background: #2563eb; color: #fff !important; text-decoration: none; padding: 12px 28px; border-radius: 8px; font-weight: bold; margin: 20px 0; }
+    .footer { background: #f8fafc; padding: 20px 40px; border-top: 1px solid #e5e7eb; text-align: center; }
+    .footer p { color: #9ca3af; font-size: 12px; margin: 4px 0; }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header">
+      <h1>SICODI</h1>
+      <p>Sistema de Control Documental Institucional</p>
+    </div>
+    <div class="body">
+      {{CONTENT}}
+    </div>
+    <div class="footer">
+      <p>Este es un correo automático institucional. No responda a este mensaje.</p>
+      <p>© {{YEAR}} SICODI — Sistema de Control Documental Institucional</p>
+    </div>
+  </div>
+</body>
+</html>
