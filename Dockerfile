@@ -12,8 +12,9 @@ WORKDIR /var/www/html
 # Copy project files (excluding frontend/ and other heavy dirs)
 COPY . .
 
-# Adjust permissions for storage
-RUN chown -R www-data:www-data storage/ \
+# Create storage dirs (gitignored, may not exist in repo) then set permissions
+RUN mkdir -p storage/expedientes storage/documentos storage/firmas storage/logs storage/temp \
+    && chown -R www-data:www-data storage/ \
     && chmod -R 775 storage/
 
 # Set DocumentRoot to public/
