@@ -103,7 +103,12 @@ class Router
         }
 
         // If no route matched
-        $response->json(['error' => 'Not Found', 'path' => $uri], 404)->send();
+        $response->json([
+            'error' => 'Route Not Found', 
+            'requested_method' => $method, 
+            'requested_uri' => $uri,
+            'suggestion' => 'Check if the route is registered in public/index.php'
+        ], 404)->send();
     }
     
     private function executeMiddleware($middleware, Request $request, Response $response): void
