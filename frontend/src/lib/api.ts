@@ -1,8 +1,9 @@
 import axios from 'axios';
 
-// URL del backend PHP — las rutas están registradas bajo /api/v1/
+// URL base relativa — Next.js hará el proxy hacia el backend PHP (Render) 
+// vía la configuración de 'rewrites' en next.config.mjs
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1',
+  baseURL: '/api/v1',
   headers: {
     'Content-Type': 'application/json',
   },
