@@ -45,8 +45,14 @@ $router = new Router();
 // ==========================================
 
 $router->get('/', function(Request $request, Response $response) {
-    $appUrl  = getenv('APP_URL')  ?: 'http://localhost:8000';
+    // Intentar detectar la URL base automáticamente si no hay variable de entorno
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
+    $host = $_SERVER['HTTP_HOST'] ?? 'localhost:8000';
+    $autoUrl = rtrim($protocol . $host, '/');
+
+    $appUrl  = getenv('APP_URL')  ?: $autoUrl;
     $frontUrl = getenv('FRONTEND_URL') ?: 'http://localhost:3000';
+    
     return $response->json([
         'status'  => 'success',
         'app'     => 'SICODI — Sistema de Control Documental Institucional',
