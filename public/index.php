@@ -45,12 +45,14 @@ $router = new Router();
 // ==========================================
 
 $router->get('/', function(Request $request, Response $response) {
+    $appUrl  = getenv('APP_URL')  ?: 'http://localhost:8000';
+    $frontUrl = getenv('FRONTEND_URL') ?: 'http://localhost:3000';
     return $response->json([
         'status'  => 'success',
         'app'     => 'SICODI — Sistema de Control Documental Institucional',
         'version' => '1.0.0',
-        'api'     => 'http://localhost:8000/api',
-        'frontend'=> 'http://localhost:3000',
+        'api'     => $appUrl . '/api',
+        'frontend'=> $frontUrl,
         'endpoints' => ['/api/v1/health', '/api/v1/expedientes', '/api/v1/documentos', '/api/v1/auth/login', '/api/v1/dashboard/kpis']
     ]);
 });

@@ -1,11 +1,18 @@
 # System folders
 /dist_sicodi
 /SICODI_DEPLOY.zip
+/*.zip
 /.next
 /node_modules
 /vendor
 /storage/logs/*.log
 /storage/temp/*
+
+# Frontend build artifacts
+/frontend/.next
+/frontend/node_modules
+/frontend/.env.local
+/frontend/.env.production
 
 # OS files
 .DS_Store

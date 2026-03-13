@@ -144,32 +144,26 @@ SICODI/
 
 ---
 
-## 🚀 Despliegue en la Nube (GitHub)
+## 🚀 Despliegue en la Nube (GitHub) — ¡LEE ESTO!
 
-Para facilitar el acceso a otros usuarios sin configurar servidores locales:
+Para que el sistema funcione en internet, **no puedes subir todo a Vercel**. Debes usar dos servicios diferentes:
 
-### 1. Crear Repositorio
-1. Crea un nuevo repositorio en tu cuenta de GitHub.
-2. Sube el código:
-   ```bash
-   git add .
-   git commit -m "Preparado para deploy cloud"
-   git branch -M main
-   git remote add origin https://github.com/TU_USUARIO/TU_REPO.git
-   git push -u origin main
-   ```
+### ⚙️ PARTE 1: Backend (PHP + MySQL) -> Usa [Railway](https://railway.app/) o [Render](https://render.com/)
+Vercel **no soporta PHP**. Si lo subes ahí, se descargará el código en lugar de ejecutarse.
+1. Crea una cuenta en Railway o Render.
+2. Conecta tu repositorio de GitHub.
+3. El servicio detectará el archivo `Dockerfile` que ya creé y configurará el servidor PHP automáticamente.
+4. **Base de Datos:** Crea una base de datos MySQL en el mismo servicio y obtén las credenciales.
+5. **Variables de Entorno:** En el panel del Backend, configura esto:
+   - `DB_HOST`: (Ej: `mysql.railway.internal`)
+   - `DB_NAME`: `sigdi`
+   - `DB_USER`: `root`
+   - `DB_PASS`: (Tu contraseña)
 
-### 2. Desplegar Backend (PHP + MySQL)
-Recomendamos **Railway** o **Render**:
-- Conecta el repo de GitHub.
-- Selecciona el directorio raíz (usará el `Dockerfile` que he creado).
-- **Variables de Entorno:** Configura `DB_HOST`, `DB_NAME`, `DB_USER` y `DB_PASS` apuntando a tu base de datos cloud (puedes crear una base de datos MySQL en el mismo servicio).
-
-### 3. Desplegar Frontend (Next.js)
-Recomendamos **Vercel**:
-- Conecta el repo de GitHub.
-- Directorio de la aplicación: `frontend`.
-- **Variable de Entorno:** Configura `NEXT_PUBLIC_API_URL` con la URL de tu backend desplegado en el paso anterior.
+### 💻 PARTE 2: Frontend (Next.js) -> Usa [Vercel](https://vercel.com/)
+1. Conecta tu repo a Vercel.
+2. **IMPORTANTE:** En "Root Directory", selecciona la carpeta `frontend`.
+3. **Variable de Entorno:** Configura `NEXT_PUBLIC_API_URL` con la URL que te dio Railway/Render (ej: `https://api-sicodi.up.railway.app/api/v1`).
 
 ---
 
