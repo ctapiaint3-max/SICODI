@@ -1,0 +1,59 @@
+# render.yaml — SICODI Blueprint para Render
+# Docs: https://render.com/docs/blueprint-spec
+#
+# ⚠️  IMPORTANTE: Render no ofrece MySQL gratuito.
+# Usa una BD MySQL externa como PlanetScale (gratis): https://planetscale.com
+# O cambia a PostgreSQL (Render lo ofrece gratis).
+#
+# Para MySQL externo: copia las credenciales de PlanetScale en las variables de abajo.
+
+services:
+  # ─────────────────────────────────────────────────────────────
+  # Servicio 1: Backend PHP (API)
+  # ─────────────────────────────────────────────────────────────
+  - type: web
+    name: sicodi-backend
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    # Render inyecta PORT automáticamente — docker-entrypoint.sh ya lo maneja
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: DB_HOST
+        sync: false   # lo ingresas manualmente en el dashboard de Render
+      - key: DB_NAME
+        value: sigdi
+      - key: DB_USER
+        sync: false
+      - key: DB_PASS
+        sync: false
+      - key: APP_URL
+        fromService:
+          type: web
+          name: sicodi-backend
+          property: host
+      - key: FRONTEND_URL
+        fromService:
+          type: web
+          name: sicodi-frontend
+          property: host
+
+  # ─────────────────────────────────────────────────────────────
+  # Servicio 2: Frontend Next.js
+  # ─────────────────────────────────────────────────────────────
+  - type: web
+    name: sicodi-frontend
+    runtime: docker
+    dockerfilePath: ./frontend/Dockerfile
+    dockerContext: ./frontend
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        fromService:
+          type: web
+          name: sicodi-backend
+          property: host
+          envVarPrefix: "https://"
+      - key: BACKEND_URL
+        fromService:
+          type: web
+          name: sicodi-backend
+          property: host
