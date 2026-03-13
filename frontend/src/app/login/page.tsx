@@ -26,31 +26,29 @@ export default function LoginPage() {
     setError('');
 
     try {
-      // Simular tiempo de conexión (0.5s)
-      await new Promise(resolve => setTimeout(resolve, 500));
+      // Bypass del Login: Simulamos éxito inmediato sin llamar a la API
+      console.log('Login Bypass activado. Redirigiendo...');
+      const mockToken = 'bypass_token_' + Math.random().toString(36).substr(2);
+      const mockUser = {
+          id: 1,
+          username: credentials.username || 'admin',
+          full_name: 'Usuario (Bypass Mode)',
+          area_id: 1
+      };
+
+      localStorage.setItem('sicodi_token', mockToken);
+      localStorage.setItem('sicodi_user', JSON.stringify(mockUser));
+      document.cookie = `sicodi_token=${mockToken}; path=/; max-age=604800; SameSite=Strict`;
       
-      const res = await api.post('/auth/login', credentials);
-      if (res.data.status === 'success') {
-        const token = res.data.data.token;
-        localStorage.setItem('sicodi_token', token);
-        localStorage.setItem('sicodi_user', JSON.stringify(res.data.data.user));
-        document.cookie = `sicodi_token=${token}; path=/; max-age=604800; SameSite=Strict`;
-        
-        if (rememberMe) {
-          localStorage.setItem('sicodi_remembered_user', credentials.username);
-        } else {
-          localStorage.removeItem('sicodi_remembered_user');
-        }
-        
-        // Simular preparación de entorno institucional (1s) antes de redirigir
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        router.push('/');
-      } else {
-        setError('Credenciales inválidas.');
-        setLoading(false);
+      if (rememberMe) {
+        localStorage.setItem('sicodi_remembered_user', credentials.username);
       }
+      
+      setLoading(true);
+      await new Promise(resolve => setTimeout(resolve, 800));
+      router.push('/');
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Error de conexión al servidor.');
+      setError('Error inesperado en bypass.');
       setLoading(false);
     }
   };

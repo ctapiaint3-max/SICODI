@@ -8,10 +8,12 @@ export function middleware(request: NextRequest) {
   const isLoginPage = path === '/login';
   const isRecoverPage = path === '/recuperar';
 
-  // Si trata de entrar a cualquier página que no sea pública sin estar logueado
+  // Bypass: No redirigir al login si falta el token
+  /*
   if (!isLoginPage && !isRecoverPage && !token) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
+  */
 
   // Si trata de entrar a login o recuperar estando ya logueado
   if ((isLoginPage || isRecoverPage) && token) {
