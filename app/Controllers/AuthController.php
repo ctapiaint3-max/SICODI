@@ -74,7 +74,7 @@ class AuthController
             }
 
             // Generando JWT Real
-            require_once __DIR__ . '/../core/JwtHandler.php';
+            require_once __DIR__ . '/../Core/JwtHandler.php';
             $jwtHandler = new \App\Core\JwtHandler();
             
             $jwt = $jwtHandler->generateToken([
